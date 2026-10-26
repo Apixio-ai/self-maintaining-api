@@ -58,8 +58,9 @@ demo. The sample client is stubbed in the tests.
 
 ## Honest limits
 
-- Specs here are simplified extracts from Stripe's changelog page,
-  not Stripe's full OpenAPI file.
+- Specs are fuller extracts for this one endpoint: changelog renames
+  plus unchanged request/response fields from Stripe's Meter Usage
+  Analytics guide. They are still not Stripe's full OpenAPI file.
 - The 2025-09-30 version is a preview version.
 - The sample client is stubbed — this demo does not call live Stripe.
 - This demo creates a local branch and PR summary, not a real GitHub
