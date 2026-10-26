@@ -18,20 +18,20 @@ Billing Meter Usage retrieve call.
 
 def get_meter_usage(client, meter_id, start_time, end_time):
     response = client.retrieve_meter_usage(
-        start_time=start_time,
-        end_time=end_time,
-        meters=[{"meter_id": meter_id}],
+        starts_at=start_time,
+        ends_at=end_time,
+        meters=[{"meter": meter_id}],
     )
-    refreshed = response["data_refreshed_at"]
+    refreshed = response["refreshed_at"]
     rows = []
     # NOTE: response["data"] is a structural change in the new API -
     # data is now nested inside "rows". The maintainer flags this for
     # human review and does NOT auto-patch it. See output/PR.md.
     for row in response["data"]:
         rows.append({
-            "start": row["bucket_start_time"],
-            "end": row["bucket_end_time"],
-            "value": row["bucket_value"],
-            "meter": row["meter_id"],
+            "start": row["starts_at"],
+            "end": row["ends_at"],
+            "value": row["value"],
+            "meter": row["meter"],
         })
     return refreshed, rows

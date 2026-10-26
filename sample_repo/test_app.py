@@ -20,13 +20,13 @@ class FakeMeterClient:
     def retrieve_meter_usage(self, **kwargs):
         FakeMeterClient.last_kwargs = kwargs
         return {
-            "data_refreshed_at": "2025-09-01T00:00:00Z",
+            "refreshed_at": "2025-09-01T00:00:00Z",
             "data": [
                 {
-                    "bucket_start_time": 1000,
-                    "bucket_end_time": 2000,
-                    "bucket_value": 42,
-                    "meter_id": "mtr_123",
+                    "starts_at": 1000,
+                    "ends_at": 2000,
+                    "value": 42,
+                    "meter": "mtr_123",
                 }
             ],
         }
@@ -35,9 +35,9 @@ class FakeMeterClient:
 def test_get_meter_usage_uses_old_fields():
     client = FakeMeterClient()
     refreshed, rows = get_meter_usage(client, "mtr_123", 1000, 2000)
-    assert FakeMeterClient.last_kwargs["start_time"] == 1000
-    assert FakeMeterClient.last_kwargs["end_time"] == 2000
-    assert FakeMeterClient.last_kwargs["meters"][0]["meter_id"] == "mtr_123"
+    assert FakeMeterClient.last_kwargs["starts_at"] == 1000
+    assert FakeMeterClient.last_kwargs["ends_at"] == 2000
+    assert FakeMeterClient.last_kwargs["meters"][0]["meter"] == "mtr_123"
     assert refreshed == "2025-09-01T00:00:00Z"
     assert rows[0]["start"] == 1000
     assert rows[0]["end"] == 2000
