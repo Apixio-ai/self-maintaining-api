@@ -35,6 +35,11 @@ That resets the sample repo to its original state and runs the
 maintainer. You should see: 7 renames found, 16 patch sites patched,
 tests passing, and a new branch with the patch — main/master untouched.
 
+In a fresh clone, the script first initialises sample_repo as a git
+repo with the old-code files as its baseline commit, because git does
+not push .git folders — so the demo runs from a clone too, with only
+Python needed, no API keys, no Stripe account.
+
 Then inspect:
 
 ```bash
